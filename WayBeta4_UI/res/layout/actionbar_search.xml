@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center" >
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_search_places"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="16"
+        android:imeOptions="actionSearch"
+        android:inputType="textAutoComplete|textAutoCorrect"
+        android:textColor="#FFFFFF" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+</LinearLayout>

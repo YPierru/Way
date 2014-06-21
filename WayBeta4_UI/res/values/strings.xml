@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="app_name">WayB4_UI</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_trajet_save">TrajetSave</string>
+    <string name="title_activity_gpsrunner">GPSRunner</string>
+    <string name="title_activity_trajet_display">TrajetDisplay</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_trajet_details">TrajetDetails</string>
+    <string name="title_activity_test_maps">TestMaps</string>
+    <string name="title_activity_seeroute">SeeRoute</string>
+    <string name="title_activity_welcome">WayUI</string>
+    <string name="title_activity_panel_trajet">PanelTrajet</string>
+    <string name="title_activity_see_trajet">SeeTrajet</string>
+    <string name="title_activity_array_adapter_demo">ArrayAdapterDemo</string>
+    <string name="title_activity_route_adapter">RouteAdapter</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+</resources>
