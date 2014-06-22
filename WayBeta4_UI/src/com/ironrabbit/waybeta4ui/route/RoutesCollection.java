@@ -158,4 +158,10 @@ public class RoutesCollection extends ArrayList<Route> implements Serializable {
 			f.delete();
 		}
 	}
+	
+	public void syncRouteIndex(){
+		for(int i=0;i<this.size();i++){
+			this.get(i).setIndexCollection(i);
+		}
+	}
 }

@@ -12,25 +12,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ironrabbit.waybeta4ui.Constantes;
 import com.ironrabbit.waybeta4ui.R;
 import com.ironrabbit.waybeta4ui.route.Route;
 import com.ironrabbit.waybeta4ui.route.RoutesCollection;
@@ -152,6 +144,7 @@ public class ListRoutesCards extends Activity {
 		getActionBar().setTitle("Vos trajets");
 
 		for (int i = 0; i < listRoutes.size(); i++) {
+			//Log.d("DEBUUUUUUUUG", "Trajet=>"+listRoutes.get(i).getName()+" ID=>"+listRoutes.get(i).getIndexCollection());
 			card = new CardRoute(getApplicationContext(),
 					listRoutes.get(i));
 			card.setId(""+i);
@@ -212,7 +205,7 @@ public class ListRoutesCards extends Activity {
 					}
 				});
 
-		MenuItem item_deleteAll = menu.add("Tout supprimer").setIcon(
+		/*MenuItem item_deleteAll = menu.add("Tout supprimer").setIcon(
 				R.drawable.ic_action_discard);
 		item_deleteAll.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		item_deleteAll
@@ -226,7 +219,7 @@ public class ListRoutesCards extends Activity {
 						populateCards();
 						return false;
 					}
-				});
+				});*/
 		return true;
 	}
 

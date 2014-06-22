@@ -17,5 +17,10 @@
     <string name="title_activity_route_adapter">RouteAdapter</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="list_card_undo_title">Annuler</string>
+    <plurals name="list_card_undo_items">
+        <item quantity="one">Trajet supprimé</item>
+        <item quantity="other">Trajet supprimé</item>
+    </plurals>
 
 </resources>

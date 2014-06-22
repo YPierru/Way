@@ -129,7 +129,7 @@ public class CreateRoute extends Activity {
 		if (mMode.equals("Modification")) {
 			settingMapClickListenerNomal();
 			ArrayList<LatLng> tmpListMarkers = mRoute.getListMarkersLatLng();
-			mNumberWayPointsLeft=tmpListMarkers.size()-2;
+			mNumberWayPointsLeft=tmpListMarkers.size()-1;
 			if(mNumberWayPointsLeft>0){
 				displayIndicatorWayPoints();
 			}
@@ -141,14 +141,14 @@ public class CreateRoute extends Activity {
 			for (int i = 0; i < tmpListMarkers.size(); i++) {
 				if (i == 0) {
 					mListMarkers.add(putMarker(tmpListMarkers.get(i), "Départ",
-							true, true));
+							true, false));
 				} else {
 					mListMarkers
-							.add(putMarker(tmpListMarkers.get(i), "NO", true, false));
+							.add(putMarker(tmpListMarkers.get(i), "NO", true, true));
 				}
 			}
 			CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(
-					tmpListMarkers.get(tmpListMarkers.size() - 1), Constantes.ZOOM_GENERAL);
+					tmpListMarkers.get(0), Constantes.ZOOM_GENERAL);
 			mMap.animateCamera(cu, Constantes.ZOOM_SPEED_MS, null);
 		}
 	}
@@ -377,7 +377,7 @@ public class CreateRoute extends Activity {
 										+ "<br /><u><em>Sauvegarder</em></u> : si vous avez un trajet, le sauvegarde, vous pourrez ensuite soit lancer le <u>GPS</u> soit <u>quitter</u>"
 										+ "<br /><u><em>Changer type carte</em></u> : changer le type de la carte (normal, hybride, terrain, satellite)"
 										+ "<br /><u><em>Corriger</em></u> : active un mode particulier. Si vous avez un trajet dessiné, l'efface. "
-										+ "Vous pouvez supprimer un point en cliquant dessus. Pour quitter ce mode, cliquer sur dessiner ou terminer"))
+										+ "Vous pouvez supprimer un point en cliquant dessus. Pour quitter ce mode, cliquer sur dessiner, terminer ou correction"))
 						.setCancelable(false)
 						.setPositiveButton("Ok",
 								new DialogInterface.OnClickListener() {
@@ -574,13 +574,13 @@ public class CreateRoute extends Activity {
 		}
 
 		public void actionSave() {
-			//Log.d("DEBUUUUUUG", "listMarker "+mListMarkers.size());
 			if (mListMarkers.size() > 0) {
 				RoutesCollection mRC = RoutesCollection.getInstance();
+				//Log.d("DEBUUUUUUG", "listRC "+mRC.size());
 				mRoute.setSave(true);
 				if (!mRC.replace(mRoute)) {
-					mRoute.setIndexCollection(mRC.size()-1);
 					mRC.add(mRoute);
+					mRoute.setIndexCollection(mRC.size()-1);
 				}
 				mRC.saveRoutesCollection();
 			}

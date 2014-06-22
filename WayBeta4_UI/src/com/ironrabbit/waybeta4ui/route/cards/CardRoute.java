@@ -38,6 +38,7 @@ public class CardRoute extends Card {
 				// TODO Auto-generated method stub
 				RoutesCollection mRoutesCollection = RoutesCollection.getInstance();				
 				mRoutesCollection.remove(mRoute);
+				mRoutesCollection.syncRouteIndex();
 				mRoutesCollection.saveRoutesCollection();
 			}
 		});

@@ -44,7 +44,7 @@
             android:textColor="#515151"
             android:textSize="20sp"
             android:text="Non terminé" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
