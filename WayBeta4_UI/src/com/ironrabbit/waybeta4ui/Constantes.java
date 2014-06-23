@@ -22,7 +22,7 @@ public final class Constantes {
 	
 	public static final int TEXT_SIZE_WHEEL=13;
 	
-	public static final String API_KEY="YOUR_API_KEY";
+	public static final String API_KEY="AIzaSyB4m_X5XwwnhYenzLhIexv-glVWu-j_Egs";
 	
 	public static final int WIDTH_POLYLINE=10;
 	public static final int COLOR_POLYLINE=Color.argb(120, 0, 180, 0);

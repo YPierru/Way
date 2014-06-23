@@ -26,6 +26,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -64,7 +66,8 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 	private UserPosition mUserPos;
 	private int totalDistance=0;
 	private int totalDuration=0;
-	private int compteurAffichage=0;
+	private boolean allInfoAreDisplaying=false;
+	private boolean firstLocationFind=false;
 	private boolean mustSpeak1000=true,mustSpeak500=true,mustSpeak200=true,mustSpeak50=true;
 	private Chrono mChrono;
 	
@@ -110,11 +113,11 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 						.getLat(), mListSteps.get(i).getEnd_location().getLng()));
 			}
 		}
-		String str;
+		/*String str;
 		for(int i=0;i<this.mListSteps.size();i++){
 			str= this.mListSteps.get(i).getHtml_instructions().split("<div")[0];
 			Log.d("debug.showInstr", str);
-		}
+		}*/
 		/*for(int i=0;i<this.listPointsToFollow.size();i++){
 			Log.d("PTFL", this.listPointsToFollow.get(i).toString());
 		}*/
@@ -148,24 +151,16 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 	private void drawRoute(){
 		//Departure
 		ArrayList<LatLng> listPointsOverview = mRoute.getPointsWhoDrawsPolylineLatLng();
-		setMarker(listPointsOverview.get(0), "Départ");
-		
-		//Zone de d??tection (5 mètres) du point de d??part
-		/*CircleOptions circleOptions;
-		
-		for(int i=0;i<this.listPointsToFollow.size();i++){
-			setMarker(this.listPointsToFollow.get(i), "");
-			circleOptions= new CircleOptions()
-		    .center(this.listPointsToFollow.get(i))
-		    .radius(Constantes.RADIUS_DETECTION);
-			mMap.addCircle(circleOptions);
-		}*/
-		
-		//CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(listPointsOverview.get(0), 15);
-		//mMap.animateCamera(cu);
-		//Log.d("DEBUUUUUG", listPointsOverview.get(0).toString());
-		
-		
+		ArrayList<LatLng> listStepMarkers = mRoute.getListMarkersLatLng();
+		setMarker(listPointsOverview.get(0), "Départ", false);
+		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(listPointsOverview.get(0),
+				16);
+		mMap.animateCamera(cu, 600, null);
+		if(listStepMarkers.size()>2){
+			for(int i=1;i<listStepMarkers.size()-1;i++){
+				setMarker(listStepMarkers.get(i), "Jalon "+i, true);
+			}
+		}
 		//Tra??age du trajet
 		PolylineOptions options = new PolylineOptions().geodesic(false)
 				.width(Constantes.WIDTH_POLYLINE_GPS).color(Constantes.COLOR_POLYLINE_GPS);
@@ -177,14 +172,20 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 		
 		
 		//On met le marker ?? l'arriv??e
-		setMarker(listPointsOverview.get(listPointsOverview.size() - 1), "Arrivée");
+		setMarker(listPointsOverview.get(listPointsOverview.size() - 1), "Arrivée", false);
 	}
 	
-	public void setMarker(LatLng point, String str) {
+	public void setMarker(LatLng point, String str, boolean isInter) {
+		int markerIcn;
+		if(isInter){
+			markerIcn=R.drawable.ic_marker_inter;
+		}else{
+			markerIcn=R.drawable.ic_marker_princ;
+		}
 		mMap.addMarker(
 				new MarkerOptions()
 						.icon(BitmapDescriptorFactory
-								.fromResource(R.drawable.icon_green))
+								.fromResource(markerIcn))
 						.anchor(0.0f, 1.0f) // Anchors the
 											// marker on the
 											// bottom left
@@ -246,7 +247,7 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 		public int secondsChrono;
 		public int deltaChrono;
 		public int stepDuration;
-		public boolean imlate=false;
+		public boolean imlate=false, isSpeakingBeforeRoute=false;
 
 		@Override
 		//Lorsque la position de mon utilisateur change...
@@ -272,8 +273,8 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 			}
 			if(!mUserPos.isOnRoute()){
 				
-				if(distUserNextPoint<Constantes.RADIUS_DETECTION && compteurAffichage==0){
-					compteurAffichage++;
+				if(distUserNextPoint<Constantes.RADIUS_DETECTION && !allInfoAreDisplaying){
+					allInfoAreDisplaying=true;
 					//Toast.makeText(GPSRunner.this, "D??part",Toast.LENGTH_SHORT).show();
 					
 					String text=Html.fromHtml(currentStep.getHtml_instructions()).toString()+". puis, "+Html.fromHtml(nextStep.getHtml_instructions()).toString();
@@ -283,6 +284,16 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 					displayInstructions(nextStep);
 					mUserPos.setIsOnRoute(true);
 					mUserPos.setToNextPointToFollow();
+				}
+				else if(distUserNextPoint>Constantes.RADIUS_DETECTION){
+					
+					if(!isSpeakingBeforeRoute){
+						isSpeakingBeforeRoute=true;
+						String text="Rejoingnez votre point de départ, "+mRoute.getStartAddress();
+						textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+					}
+					showInfoDirection();
+					displayInstructions("Vous êtes à "+convertMeterToKm(distUserNextPoint)+" de votre point de départ");
 				}
 				
 			}
@@ -426,14 +437,41 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 			}
 		}
 		
+		public void showLayout(){
+			showInfoFinish();
+			showKmNextPoint();
+			showInfoDirection();
+		}
+		
+		public void showInfoFinish(){
+			TextView tv_infoFinish=(TextView)findViewById(R.id.tv_gps_finish);
+			if(tv_infoFinish.getVisibility()!=View.VISIBLE){
+				tv_infoFinish.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		public void showKmNextPoint(){
+			TextView tv_kmNextPoint=(TextView)findViewById(R.id.tv_gps_kmnextpoint);
+			if(tv_kmNextPoint.getVisibility()!=View.VISIBLE){
+				tv_kmNextPoint.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		public void showInfoDirection(){
+			TextView tv_infoDirection=(TextView)findViewById(R.id.tv_gps_htmlInstructions);
+			if(tv_infoDirection.getVisibility()!=View.VISIBLE){
+				tv_infoDirection.setVisibility(View.VISIBLE);
+			}
+		}
+		
 		public void displayInstructions(Step cStep){
 			TextView tv_Instructions = (TextView)findViewById(R.id.tv_gps_htmlInstructions);
 			tv_Instructions.setText(Html.fromHtml(cStep.getHtml_instructions().split("<div ")[0]));
 		}
 		
-		public void showLayout(){
-			RelativeLayout rl = (RelativeLayout)findViewById(R.id.rl_gps);
-			rl.setVisibility(View.VISIBLE);
+		public void displayInstructions(String str){
+			TextView tv_Instructions = (TextView)findViewById(R.id.tv_gps_htmlInstructions);
+			tv_Instructions.setText(Html.fromHtml(str));
 		}
 		
 		public int formatDist(int d){
@@ -458,7 +496,7 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
-			String newStatus = "";
+			/*String newStatus = "";
 			switch (status) {
 			case LocationProvider.OUT_OF_SERVICE:
 				newStatus = "OUT_OF_SERVICE";
@@ -471,20 +509,20 @@ public class GPSRunner extends Activity implements SensorEventListener,TextToSpe
 				break;
 			}
 			Toast.makeText(GPSRunner.this, provider + " " + newStatus,
-					Toast.LENGTH_SHORT).show();
+					Toast.LENGTH_SHORT).show();*/
 
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
-			Toast.makeText(GPSRunner.this, "enable : " + provider,
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(GPSRunner.this, "enable : " + provider,
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
-			Toast.makeText(GPSRunner.this, "disable : " + provider,
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(GPSRunner.this, "disable : " + provider,
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 	}

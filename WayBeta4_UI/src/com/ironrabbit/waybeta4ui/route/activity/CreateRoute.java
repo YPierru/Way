@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -86,7 +87,7 @@ public class CreateRoute extends Activity {
 	private LinearLayout mLinearLayourWheel;
 	private AutoCompleteTextView atvPlaces;
 	private MenuItem itemWheelMenu, itemSearch, itemHelp;
-	private boolean wheelEnable,canBeDraw,correctionEnable, onSearch;
+	private boolean wheelEnable,canBeDraw,correctionEnable, onSearch, firstLocationFind=false;
 	private TextView mIndicatorWayPoints;
 	private int mNumberWayPointsLeft=0;
 
@@ -105,6 +106,9 @@ public class CreateRoute extends Activity {
 		mListMarkers = new ArrayList<Marker>();
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mMap.setMyLocationEnabled(true);
+		mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+		//CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(),mMap.getMyLocation().getLongitude()),15);
+		//mMap.animateCamera(cu, 600, null);
 		mPolyline = null;
 		mRoute = getIntent().getExtras().getParcelable("trajet");
 		mIndicatorWayPoints = (TextView)findViewById(R.id.tv_createroute_waypoints);
@@ -122,6 +126,19 @@ public class CreateRoute extends Activity {
 		
 
 	}
+	
+	private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+	    @Override
+	    public void onMyLocationChange(Location location) {
+	    	if(!firstLocationFind){
+		        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+		        if(mMap != null){
+		            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+		        }
+		        firstLocationFind=true;
+	    	}
+	    }
+	};
 
 	private void traitementsSiTrajetEnCours(){
 		mMode = getIntent().getExtras().getString("MODE");
