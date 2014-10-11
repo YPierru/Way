@@ -284,6 +284,7 @@ int menu cardeheader_menu_routevalidate 0x7f0b0001
 int plurals card_selected_items 0x7f080001
 int plurals list_card_undo_items 0x7f080000
 int string action_settings 0x7f07001c
+int string api_key 0x7f07002c
 int string app_name 0x7f070000
 int string common_google_play_services_enable_button 0x7f07000d
 int string common_google_play_services_enable_text 0x7f07000c
@@ -312,6 +313,7 @@ int string common_signin_button_text 0x7f070019
 int string common_signin_button_text_long 0x7f07001a
 int string drawer_close 0x7f07002a
 int string drawer_open 0x7f070029
+int string file_route_name 0x7f07002b
 int string hello_world 0x7f070020
 int string list_card_undo_title 0x7f070001
 int string title_activity_array_adapter_demo 0x7f070027

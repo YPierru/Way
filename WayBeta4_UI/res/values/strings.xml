@@ -18,6 +18,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="list_card_undo_title">Annuler</string>
+    <string name="file_route_name">.routescollection.way</string>
+    <string name="api_key">WRITE_HERE_YOUR_API_KEY</string>
     <plurals name="list_card_undo_items">
         <item quantity="one">Trajet supprimé</item>
         <item quantity="other">Trajet supprimé</item>
