@@ -70,8 +70,11 @@ import com.yanp.way.gps.activity.GPSNavigation;
 import com.yanp.way.route.Route;
 import com.yanp.way.route.RoutesCollection;
 
-/*
- * Create/Modify/Watch trajet
+
+/**
+ * Create the route
+ * @author YPierru
+ *
  */
 public class CreateRoute extends Activity {
 
@@ -503,7 +506,6 @@ public class CreateRoute extends Activity {
 	 */
 	public void openSearchBar() {
 
-		
 		onSearch = true;
 		itemHelp.setVisible(false);
 		itemWheelMenu.setVisible(false);
@@ -522,7 +524,7 @@ public class CreateRoute extends Activity {
 		atvPlaces = (AutoCompleteTextView) findViewById(R.id.actv_search_places);
 		
 		showKeyboard();
-		
+
 		//When a character is written
 		atvPlaces.addTextChangedListener(new TextWatcher() {
 
@@ -582,6 +584,8 @@ public class CreateRoute extends Activity {
 		InputStream iStream = null;
 		HttpURLConnection urlConnection = null;
 		try {
+
+
 			URL url = new URL(stringUrl);
 
 			// Creating an http connection to communicate with url
@@ -856,12 +860,13 @@ public class CreateRoute extends Activity {
 		@Override
 		protected String doInBackground(String... place) {
 
+		
+			
 			// For storing data from web service
 			String data = "";
 
 			// Obtain browser key from https://code.google.com/apis/console
-			String key = "key="+R.string.api_key;
-
+			String key = "key="+getResources().getString(R.string.api_key);
 			String input = "";
 
 			try {
@@ -974,7 +979,7 @@ public class CreateRoute extends Activity {
 			String data = "";
 
 			// Obtain browser key from https://code.google.com/apis/console
-			String key = "key="+R.string.api_key;
+			String key = "key="+getResources().getString(R.string.api_key);
 
 			String reference = "";
 
