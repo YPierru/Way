@@ -226,9 +226,9 @@ public class CreateRoute extends Activity {
 		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(point,Constants.ZOOM_NEW_ROUTE);
 		googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);
 	
-		listMarkers.add(putMarker(point, "Départ", true, false));
-		route.getListMarkers().clear();
-		route.getListMarkers().add(point.latitude, point.longitude);
+		this.listMarkers.add(putMarker(point, "Départ", true, false));
+		this.route.getListMarkers().clear();
+		this.route.getListMarkers().add(point.latitude, point.longitude);
 
 		setMapOneClickOneMarker();
 	}
@@ -624,6 +624,9 @@ public class CreateRoute extends Activity {
 	 * Draw the route on the map, calling an asynctask
 	 */
 	public void actionDraw() {
+		
+		
+		
 		if (mPolyline != null) {
 			mPolyline.remove();
 		}
@@ -700,12 +703,15 @@ public class CreateRoute extends Activity {
 								listMarkers.remove(i);
 								route.setListMarkersMk(listMarkers);
 								marker.remove();
+								/*if(i==1){
+									
+								}*/
 							}
 							break;
 						}
 					}
 
-					if (listMarkers.size() == 0) {
+					if (listMarkers.size() == 1) {
 						canBeDraw = false;
 					}
 					
@@ -908,6 +914,8 @@ public class CreateRoute extends Activity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 
+			Log.d("DEBUUUUUG", "résultat = "+result);
+			
 			// Creating ParserTask
 			ParserTask parserTask = new ParserTask();
 
