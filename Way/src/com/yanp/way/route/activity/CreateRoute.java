@@ -79,9 +79,9 @@ import com.yanp.way.route.RoutesCollection;
 public class CreateRoute extends Activity {
 
 	private GoogleMap googleMap;
-	private Polyline mPolyline;
+	private Polyline polylineRoute;
 	private ArrayList<Marker> listMarkers= new ArrayList<Marker>();			
-	private Route route;
+	private Route currentRoute;
 	private RadialMenuWidget mWheelMenu;
 	private LinearLayout linearLayourWheel;
 	private AutoCompleteTextView atvPlaces;
@@ -102,14 +102,17 @@ public class CreateRoute extends Activity {
 		this.googleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 		this.googleMap.setOnMarkerDragListener(null);
 
-		this.route = getIntent().getExtras().getParcelable("route");
+		this.currentRoute = getIntent().getExtras().getParcelable("route");
 		
 		this.countIntermediaryPoints = (TextView)findViewById(R.id.tv_createroute_waypoints);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setTitle(route.getName());
+		getActionBar().setTitle(this.currentRoute.getName());
 		
-		actionIfRouteNotFinish();
+		String typeOfRoute = getIntent().getExtras().getString("type_of_route");
+		if (typeOfRoute.equals("not_finish")) {
+			actionIfRouteNotFinish();
+		}
 
 		settingMapOneLongClickOneNewStartingPoint();
 		
@@ -135,39 +138,35 @@ public class CreateRoute extends Activity {
 	 * Specific action if the route received is not finish
 	 */
 	private void actionIfRouteNotFinish(){
-		String typeOfRoute = getIntent().getExtras().getString("type_of_route");
+			
+		setMapOneClickOneMarker();
+		Log.d("DEBUG", "SIZE="+this.currentRoute.getListMarkers().size());
+		ArrayList<LatLng> tmpListMarkers = this.currentRoute.getListMarkersLatLng();
+		this.amountOfInterPointsRemaining=tmpListMarkers.size()-1;
 		
-		if (typeOfRoute.equals("not_finish")) {
-			
-			setMapOneClickOneMarker();
-			
-			ArrayList<LatLng> tmpListMarkers = route.getListMarkersLatLng();
-			this.amountOfInterPointsRemaining=tmpListMarkers.size()-1;
-			
-			if(this.amountOfInterPointsRemaining>0){
-				displayIndicatorIntermediaryPoints();
-			}
-			
-			//If there's not marker, the route can't be draw
-			if(tmpListMarkers.size()==0){
-				canBeDraw=false;
-			}else{
-				canBeDraw=true;
-			}
-			
-			//Place the marker on the map and add them in the listMarkers
-			for (int i = 0; i < tmpListMarkers.size(); i++) {
-				if (i == 0) {
-					listMarkers.add(putMarker(tmpListMarkers.get(i), "Départ",true, false));
-				} else {
-					listMarkers.add(putMarker(tmpListMarkers.get(i), "NO", true, true));
-				}
-			}
-			
-			CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(tmpListMarkers.get(0), Constants.ZOOM_GENERAL);
-			googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);
-			
+		if(this.amountOfInterPointsRemaining>0){
+			displayIndicatorIntermediaryPoints();
 		}
+		
+		//If there's not marker, the route can't be draw
+		if(tmpListMarkers.size()==1){
+			canBeDraw=false;
+		}else{
+			canBeDraw=true;
+		}
+		
+		//Place the marker on the map and add them in the listMarkers
+		for (int i = 0; i < tmpListMarkers.size(); i++) {
+			if (i == 0) {
+				this.listMarkers.add(putMarker(tmpListMarkers.get(i), "Départ",true, false));
+			} else {
+				this.listMarkers.add(putMarker(tmpListMarkers.get(i), "NO", true, true));
+			}
+		}
+		
+		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(tmpListMarkers.get(0), Constants.ZOOM_GENERAL);
+		this.googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);
+			
 	}
 
 
@@ -175,7 +174,7 @@ public class CreateRoute extends Activity {
 	 * Behavior of a long click : a long click add a new starting point
 	 */
 	private void settingMapOneLongClickOneNewStartingPoint() {
-		googleMap.setOnMapLongClickListener(new OnMapLongClickListener() {
+		this.googleMap.setOnMapLongClickListener(new OnMapLongClickListener() {
 
 			@Override
 			public void onMapLongClick(LatLng point) {
@@ -224,11 +223,11 @@ public class CreateRoute extends Activity {
 		this.countIntermediaryPoints.setVisibility(View.INVISIBLE);
 
 		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(point,Constants.ZOOM_NEW_ROUTE);
-		googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);
+		this.googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);
 	
 		this.listMarkers.add(putMarker(point, "Départ", true, false));
-		this.route.getListMarkers().clear();
-		this.route.getListMarkers().add(point.latitude, point.longitude);
+		this.currentRoute.getListMarkers().clear();
+		this.currentRoute.getListMarkers().add(point.latitude, point.longitude);
 
 		setMapOneClickOneMarker();
 	}
@@ -237,7 +236,7 @@ public class CreateRoute extends Activity {
 	 * Behavior of the simpleClick, according to the number of possible intermediary points remaining
 	 */
 	private void setMapOneClickOneMarker() {
-		googleMap.setOnMapClickListener(new OnMapClickListener() {
+		this.googleMap.setOnMapClickListener(new OnMapClickListener() {
 
 			@Override
 			public void onMapClick(LatLng point) {
@@ -247,7 +246,7 @@ public class CreateRoute extends Activity {
 					displayIndicatorIntermediaryPoints();
 					listMarkers.add(putMarker(point, "NO", true, true));
 					canBeDraw=true;
-					route.getListMarkers().add(point.latitude, point.longitude);
+					currentRoute.getListMarkers().add(point.latitude, point.longitude);
 				}else{
 					Toast.makeText(getApplicationContext(), "Vous ne pouvez mettre plus de 8 jalons par trajets", Toast.LENGTH_LONG).show();
 				}
@@ -282,7 +281,7 @@ public class CreateRoute extends Activity {
 	 * Set an empty click listener
 	 */
 	private void settingMapClickListenerCorrectionMode(){
-		googleMap.setOnMapClickListener(new OnMapClickListener() {
+		this.googleMap.setOnMapClickListener(new OnMapClickListener() {
 			
 			@Override
 			public void onMapClick(LatLng arg0) {}
@@ -306,7 +305,7 @@ public class CreateRoute extends Activity {
 			idIcMarker=R.drawable.ic_marker_princ;
 		}
 		
-		Marker marker = googleMap.addMarker(new MarkerOptions()
+		Marker marker = this.googleMap.addMarker(new MarkerOptions()
 				.icon(BitmapDescriptorFactory.fromResource(idIcMarker))
 				.anchor(0.0f, 1.0f)
 				.position(position));
@@ -327,7 +326,7 @@ public class CreateRoute extends Activity {
 	}
 	
 	public void setPolyline(Polyline p){
-		this.mPolyline=p;
+		this.polylineRoute=p;
 	}
 
 	/**
@@ -350,7 +349,7 @@ public class CreateRoute extends Activity {
 	 */
 	public void actionIfUserWantsBack() {
 
-		if (listMarkers.size() > 0) {
+		if (this.listMarkers.size() > 0) {
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 			alertDialog.setTitle("Attention");
 			alertDialog
@@ -363,6 +362,13 @@ public class CreateRoute extends Activity {
 									finish();
 								}
 							})
+					.setNeutralButton("Sauvegarder", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							actionSave();
+						}
+					})
 					.setNegativeButton("Annuler",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,int id) {
@@ -465,11 +471,16 @@ public class CreateRoute extends Activity {
 
 							//According to the state of the differents boolean, the wheel will not be the same
 							mWheelMenu.setCenterCircle(new WheelMenu("Close", true, android.R.drawable.ic_menu_close_clear_cancel));
+							
 							mWheelMenu.addMenuEntry(new SaveMenu());
+							
 							if(canBeDraw){
 								mWheelMenu.addMenuEntry(new WheelMenu("Dessiner", true, 0));
 							}
-							if(listMarkers.size()>1 || correctionEnable){
+							if(listMarkers.size()>=1 && correctionEnable){
+								mWheelMenu.addMenuEntry(new WheelMenu("Quitter\nCorrection", true, 0));
+							}
+							if(listMarkers.size()>1 && !correctionEnable){
 								mWheelMenu.addMenuEntry(new WheelMenu("Correction", true, 0));
 							}
 							
@@ -627,16 +638,17 @@ public class CreateRoute extends Activity {
 		
 		
 		
-		if (mPolyline != null) {
-			mPolyline.remove();
+		if (this.polylineRoute != null) {
+			this.polylineRoute.remove();
 		}
 
 		if (correctionEnable) {
 			correctionEnable = false;
+			changeStatusBarOnCorrectionMode();
 			setMapOneClickOneMarker();
 		}
 
-		CallsDirRespAPIAndDrawRoute getRoute = new CallsDirRespAPIAndDrawRoute(this,route,listMarkers, googleMap);
+		CallsDirRespAPIAndDrawRoute getRoute = new CallsDirRespAPIAndDrawRoute(this,this.currentRoute,this.listMarkers, this.googleMap);
 		getRoute.execute();
 	}
 
@@ -645,13 +657,13 @@ public class CreateRoute extends Activity {
 	 */
 	public void actionSave() {
 		
-		if (listMarkers.size() > 0) {
+		if (this.listMarkers.size() > 0) {
 			RoutesCollection mRC = RoutesCollection.getInstance();
-			route.setSave(true);
+			this.currentRoute.setSave(true);
 			
-			if (!mRC.replace(route)) {
-				mRC.add(route);
-				route.setIndexCollection(mRC.size()-1);
+			if (!mRC.replace(this.currentRoute)) {
+				mRC.add(this.currentRoute);
+				this.currentRoute.setIndexCollection(mRC.size()-1);
 			}
 			
 			mRC.saveRoutesCollection();
@@ -664,22 +676,22 @@ public class CreateRoute extends Activity {
 	public void actionCorrection() {
 		if (!correctionEnable) {
 			
-			//Change the color of the action bar
-			getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff8000")));
-			getActionBar().setTitle(route.getName()+" [Correction]");
-			
 			correctionEnable = true;
-			route.setValidate(false);
+
+			//Change the color of the action bar
+			changeStatusBarOnCorrectionMode();
+			
+			this.currentRoute.setValidate(false);
 			
 			//Remove the actual polyline
-			if (mPolyline != null) {
-				mPolyline.remove();
+			if (this.polylineRoute != null) {
+				this.polylineRoute.remove();
 			}
 			
 			settingMapClickListenerCorrectionMode();
 			
 			//In correction mode, when the user click on a marker it erase it.
-			googleMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+			this.googleMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 				@Override
 				public boolean onMarkerClick(Marker marker) {
@@ -701,7 +713,7 @@ public class CreateRoute extends Activity {
 										Toast.LENGTH_SHORT).show();
 							} else {
 								listMarkers.remove(i);
-								route.setListMarkersMk(listMarkers);
+								currentRoute.setListMarkersMk(listMarkers);
 								marker.remove();
 								/*if(i==1){
 									
@@ -723,13 +735,24 @@ public class CreateRoute extends Activity {
 		
 		else {
 			correctionEnable = false;
-			getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1F1F1F")));
-			getActionBar().setTitle(route.getName());
+			changeStatusBarOnCorrectionMode();
 			setMapOneClickOneMarker();
 			Toast.makeText(getApplicationContext(),
 					"Mode correction désactivé", Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+	private void changeStatusBarOnCorrectionMode(){
+		if(correctionEnable){
+			getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff8000")));
+			getActionBar().setTitle(this.currentRoute.getName()+" [Correction]");
+		}else{
+			getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1F1F1F")));
+			getActionBar().setTitle(this.currentRoute.getName());
+		}
+	}
+	
+	
 
 	/*
 	 * Ci-dessous les menu de la roue
@@ -782,14 +805,14 @@ public class CreateRoute extends Activity {
 				googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 			} else if (this.name.equals("Dessiner")) {
 				actionDraw();
-			} else if (this.name.equals("Correction")) {
+			} else if (this.name.equals("Correction") || this.name.equals("Quitter Correction")) {
 				actionCorrection();
 			} else if (this.name.equals("Quitter")) {
 				finish();
 			} else if (this.name.equals("GPS")){
-				if(route.isValidate()){
+				if(currentRoute.isValidate()){
 					Intent toGPSRunner = new Intent(getApplicationContext(),GPSNavigation.class);
-					toGPSRunner.putExtra("Route_for_navigation_gps", (Parcelable) route);
+					toGPSRunner.putExtra("Route_for_navigation_gps", (Parcelable) currentRoute);
 					toGPSRunner.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					getApplicationContext().startActivity(toGPSRunner);
 				}else{
@@ -835,7 +858,7 @@ public class CreateRoute extends Activity {
 	public class SaveMenu implements RadialMenuEntry {
 	
 		public String getName() {
-			return "NewTestMenu";
+			return "SaveMenu";
 		}
 
 		public String getLabel() {
@@ -856,7 +879,7 @@ public class CreateRoute extends Activity {
 
 		public void menuActiviated() {
 			actionSave();
-			Toast.makeText(getApplicationContext(),route.getName()+" sauvegardé", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),currentRoute.getName()+" sauvegardé", Toast.LENGTH_SHORT).show();
 		}
 	}
 
