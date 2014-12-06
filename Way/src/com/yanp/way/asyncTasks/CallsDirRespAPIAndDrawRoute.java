@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yanp.way.Constants;
 import com.yanp.way.Decoder;
+import com.yanp.way.R;
 import com.yanp.way.route.Route;
 import com.yanp.way.route.activity.CreateRoute;
 import com.yanp.way.route.downloaded.DirectionsResponse;
@@ -36,7 +38,7 @@ import com.yanp.way.route.downloaded.Legs;
  */
 public class CallsDirRespAPIAndDrawRoute extends AsyncTask<Void, Void, DirectionsResponse> {
 
-	private final String URL_PATTERN = "https://maps.googleapis.com/maps/api/directions/json?sensor=true&language=fr";
+	private String url_pattern;
 	private ProgressDialog progressDialog;
 	private Route route;
 	private ArrayList<Marker> listMarkers;
@@ -56,6 +58,7 @@ public class CallsDirRespAPIAndDrawRoute extends AsyncTask<Void, Void, Direction
 		this.route=route;
 		this.listMarkers=listMarkers;
 		this.googleMap=googleMap;
+		this.url_pattern=this.createRouteInstance.getResources().getString(R.string.url_pattern_directionsapi)+"&language="+Constants.CURRENT_LANGUAGE.getLanguage();
 	}
 	
 	/**
@@ -63,7 +66,7 @@ public class CallsDirRespAPIAndDrawRoute extends AsyncTask<Void, Void, Direction
 	 */
 	protected void onPreExecute() {
 		super.onPreExecute();
-		this.progressDialog.setMessage("Dessin en cours...");
+		this.progressDialog.setMessage(this.createRouteInstance.getResources().getString(R.string.drawing_in_progress)+"...");
 		this.progressDialog.show();
 	}
 
@@ -125,7 +128,7 @@ public class CallsDirRespAPIAndDrawRoute extends AsyncTask<Void, Void, Direction
 		
 		URL url = null;
 		try {
-			url = new URL(this.URL_PATTERN 
+			url = new URL(this.url_pattern 
 						  + "&mode=" + mode 
 						  + "&origin=" + origin.latitude + ","+ origin.longitude 
 						  + "&destination=" + destination.latitude + ","+ destination.longitude 
@@ -137,6 +140,7 @@ public class CallsDirRespAPIAndDrawRoute extends AsyncTask<Void, Void, Direction
 			 */
 			InputStream is = url.openStream();
 			String jsonData = IOUtils.toString(is);
+			//Log.d("DEBUUUUUUUUG", jsonData);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			dataFromDirRespAPI = gson.fromJson(jsonData, DirectionsResponse.class);
 		} catch (MalformedURLException e1) {

@@ -127,7 +127,7 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
 			
-			int result = this.textToSpeech.setLanguage(Locale.FRANCE);
+			int result = this.textToSpeech.setLanguage(Constants.CURRENT_LANGUAGE);
 			
 			if (result == TextToSpeech.LANG_MISSING_DATA || 
 			    result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -155,7 +155,7 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 		LatLng startingPoint = listPointsOverview.get(0);
 		LatLng destinationPoint = listPointsOverview.get(listPointsOverview.size()-1);
 		
-		setMarker(startingPoint, "Départ", false);
+		setMarker(startingPoint, getResources().getString(R.string.start), false);
 		
 		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(startingPoint,Constants.ZOOM_GENERAL);
 		
@@ -166,7 +166,7 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 		 */
 		if(listStepMarkers.size()>2){
 			for(int i=1;i<listStepMarkers.size()-1;i++){
-				setMarker(listStepMarkers.get(i), "Jalon "+i, true);
+				setMarker(listStepMarkers.get(i), getResources().getString(R.string.marker)+" "+i, true);
 			}
 		}
 
@@ -185,7 +185,7 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 		this.googleMap.addPolyline(options);
 		
 				
-		setMarker(destinationPoint, "Arrivée", false);
+		setMarker(destinationPoint, getResources().getString(R.string.arrival), false);
 	}
 	
 	/**
@@ -245,15 +245,15 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 	private void buildAlertMessageNoGps() {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(
-				"Veuillez activer votre GPS pour continuer")
+				getResources().getString(R.string.alert_gps_disable))
 				.setCancelable(false)
-				.setPositiveButton("Ok",
+				.setPositiveButton(getResources().getString(R.string.ok),
 						new DialogInterface.OnClickListener() {
 							public void onClick(final DialogInterface dialog,final int id) {
 								startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 							}
 						})
-				.setNegativeButton("Quitter", new DialogInterface.OnClickListener() {
+				.setNegativeButton(getResources().getString(R.string.exit), new DialogInterface.OnClickListener() {
 					public void onClick(final DialogInterface dialog, final int id) {
 						dialog.cancel();
 						finish();
@@ -391,7 +391,7 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 				this.totalDistance=this.totalDistance-this.distanceOfTheStep;
 				
 				this.distUserNextPoint=formatDist(distanceBetween(this.userPosition.getCurrentPos(), this.listPointsToFollow.get(this.indexCurrentPoint+1)));
-				this.textToSpeech.speak("Dans "+this.distUserNextPoint+" mètres "+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint+1).getHtml_instructions()).toString(), TextToSpeech.QUEUE_FLUSH, null);
+				this.textToSpeech.speak(getResources().getString(R.string.gps_in)+" "+this.distUserNextPoint+" "+getResources().getString(R.string.gps_distance_unit)+", "+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint+1).getHtml_instructions()).toString(), TextToSpeech.QUEUE_FLUSH, null);
 				
 				if(this.distUserNextPoint>500 && this.distUserNextPoint <=1000){
 					this.mustSpeak1000=false;
@@ -406,26 +406,26 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 			
 			else{
 				this.userPosition.setFollowingNavigation(false);
-				this.textToSpeech.speak("Vous êtes arrivé", TextToSpeech.QUEUE_FLUSH, null);
+				this.textToSpeech.speak(getResources().getString(R.string.gps_arrival_phrase), TextToSpeech.QUEUE_FLUSH, null);
 			}
 		}
 		
 		public void speakAccordingToDistanceBetweenUserAndNextPoint(){
 			if(500<this.distUserNextPoint && this.distUserNextPoint<=1000 && this.mustSpeak1000){
 				this.mustSpeak1000=false;
-				this.textToSpeech.speak("Dans "+this.distUserNextPoint+" mètres ,"+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
+				this.textToSpeech.speak(getResources().getString(R.string.gps_in)+" "+this.distUserNextPoint+" "+getResources().getString(R.string.gps_distance_unit)+", "+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
 			}
 			if(200<this.distUserNextPoint && this.distUserNextPoint<=500 && this.mustSpeak500){
 				this.mustSpeak500=false;
-				this.textToSpeech.speak("Dans "+this.distUserNextPoint+" mètres ,"+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
+				this.textToSpeech.speak(getResources().getString(R.string.gps_in)+" "+this.distUserNextPoint+" "+getResources().getString(R.string.gps_distance_unit)+", "+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
 			}
 			if(50<this.distUserNextPoint && this.distUserNextPoint<=200 && this.mustSpeak200){
 				this.mustSpeak200=false;
-				this.textToSpeech.speak("Dans "+this.distUserNextPoint+" mètres ,"+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
+				this.textToSpeech.speak(getResources().getString(R.string.gps_in)+" "+this.distUserNextPoint+" "+getResources().getString(R.string.gps_distance_unit)+", "+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
 			}
 			if(this.distUserNextPoint<=50 && this.mustSpeak50){
 				this.mustSpeak50=false;
-				this.textToSpeech.speak("Dans "+this.distUserNextPoint+" mètres ,"+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
+				this.textToSpeech.speak(getResources().getString(R.string.gps_in)+" "+this.distUserNextPoint+" "+getResources().getString(R.string.gps_distance_unit)+", "+Html.fromHtml(this.listSteps.get(this.indexCurrentPoint).getHtml_instructions()).toString(), TextToSpeech.QUEUE_ADD, null);
 			}
 		}
 		
@@ -440,7 +440,7 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 		
 		public void actionWhenUserReachTheStartingPoint(){
 			this.allInfoAreDisplaying=true;
-			this.textToSpeech.speak(Html.fromHtml(this.currentStep.getHtml_instructions()).toString()+". puis, "+Html.fromHtml(this.nextStep.getHtml_instructions()).toString(), TextToSpeech.QUEUE_FLUSH, null);
+			this.textToSpeech.speak(Html.fromHtml(this.currentStep.getHtml_instructions()).toString()+". "+getResources().getString(R.string.gps_then)+", "+Html.fromHtml(this.nextStep.getHtml_instructions()).toString(), TextToSpeech.QUEUE_FLUSH, null);
 			this.chronometer.start();
 			setVisibleLayout();
 			displayInstructions();
@@ -451,11 +451,11 @@ public class GPSNavigation extends Activity implements SensorEventListener,TextT
 		public void actionWhenUserDidNotReachTheStartingPoint(){
 			if(!this.isSpeakingBeforeRoute){
 				this.isSpeakingBeforeRoute=true;
-				String text="Rejoingnez votre point de départ, "+mRoute.getStartAddress();
+				String text=getResources().getString(R.string.gps_go_starting_point)+", "+mRoute.getStartAddress();
 				this.textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 			}
 			setVisibleInfoDirection();
-			displayInstructions("Vous êtes à "+convertMeterToKm(this.distUserNextPoint)+" de votre point de départ");
+			displayInstructions(getResources().getString(R.string.gps_youre_at)+" "+convertMeterToKm(this.distUserNextPoint)+" "+getResources().getString(R.string.gps_from_starting_point));
 		}
 		
 		public void calculateRemainingTimeBeforeNextPoint(){

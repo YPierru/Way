@@ -61,7 +61,11 @@ public class RoutesCollection extends ArrayList<Route> implements Serializable {
 			if(this.get(i).isValidate()){
 				rtr[i]=this.get(i).getName();
 			}else{
-				rtr[i]="(en cours) "+this.get(i).getName();
+				if(Constants.CURRENT_LANGUAGE.getLanguage().equals("fr")){
+					rtr[i]="(en cours) "+this.get(i).getName();
+				}else{
+					rtr[i]="(in progress) "+this.get(i).getName();
+				}
 			}
 		}
 		return rtr;

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yanp.way"
-    android:versionCode="4"
-    android:versionName="1.03" >
+    android:versionCode="6"
+    android:versionName="1.05" >
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="20" />
+        android:targetSdkVersion="21" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -44,7 +44,7 @@
 
         <activity
             android:name="com.yanp.way.route.activity.CreateRoute"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_create_route"
             android:noHistory="true" >
         </activity>
         <activity
@@ -53,7 +53,7 @@
         </activity>
         <activity
             android:name="com.yanp.way.route.activity.ListRoutesCards"
-            android:label="@string/title_activity_welcome" >
+            android:label="@string/title_activity_list_routes_cards" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,12 +61,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.yanp.way.route.RouteAdapter"
-            android:label="@string/title_activity_route_adapter" >
-        </activity>
-        <activity
             android:name="com.yanp.way.gps.activity.GPSNavigation"
-            android:label="@string/title_activity_gpsrunner" >
+            android:label="@string/title_activity_gps_navigation" >
         </activity>
     </application>
 

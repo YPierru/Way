@@ -1,5 +1,7 @@
 package com.yanp.way;
 
+import java.util.Locale;
+
 import android.graphics.Color;
 import android.os.Environment;
 
@@ -19,7 +21,7 @@ public final class Constants {
 	 * If true, the position is calculate with cellular data.
 	 * If false, the app will use the phone's intern GPS.
 	 */
-	public static final boolean NETWORK_GPS=false;
+	public static final boolean NETWORK_GPS=true;
 	
 	/**
 	 * <b>{@value}</b><br />
@@ -108,5 +110,11 @@ public final class Constants {
 	 * Earth radius.
 	 */
 	public static final double EARTH_RADIUS=3958.75;
+	
+	/**
+	 * <b>{@value}</b><br />
+	 * The current language of the device
+	 */
+	public static final Locale CURRENT_LANGUAGE=Locale.getDefault();
 
 }

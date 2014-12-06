@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.nhaarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingLeftInAnimationAdapter;
+import com.yanp.way.Constants;
 import com.yanp.way.R;
 import com.yanp.way.route.Route;
 import com.yanp.way.route.RoutesCollection;
@@ -50,7 +51,7 @@ public class ListRoutesCards extends Activity {
 		
 
 		listRoutes=RoutesCollection.getInstance().getListRoutes();
-		getActionBar().setTitle("Vos trajets");
+		getActionBar().setTitle(getResources().getString(R.string.lrc_name));
 
 		/**
 		 * Create a card for each route in the list
@@ -85,10 +86,16 @@ public class ListRoutesCards extends Activity {
 	 */
 	public void alertNoRoutesSave(){
 		final AlertDialog.Builder alert = new AlertDialog.Builder(
-				ListRoutesCards.this).setTitle("Aucun trajet !");
-		alert.setMessage(Html.fromHtml("Vous n'avez <b>aucun trajets</b>, commencez par en créer un !"));
+				ListRoutesCards.this).setTitle(getResources().getString(R.string.lrc_alert_no_route_title));
+		String message;
+		if(Constants.CURRENT_LANGUAGE.getLanguage().equals("fr")){
+			message="Vous n'avez <b>aucun trajets</b>, commencez par en créer un !";
+		}else{
+			message="You don't have <b>any routes</b>, create one !";
+		}
+		alert.setMessage(Html.fromHtml(message));
 		alert.setCancelable(true);
-		alert.setPositiveButton("Créer mon trajet",
+		alert.setPositiveButton(getResources().getString(R.string.lrc_alert_no_route_positive_button),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -109,7 +116,7 @@ public class ListRoutesCards extends Activity {
 	 * Item for creating a new route
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem item_NouveauTrajet = menu.add("Créer un trajet").setIcon(
+		MenuItem item_NouveauTrajet = menu.add(getResources().getString(R.string.lrc_item_new_route)).setIcon(
 				R.drawable.ic_action_new);
 		item_NouveauTrajet.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		item_NouveauTrajet
@@ -146,26 +153,26 @@ public class ListRoutesCards extends Activity {
 	 * Dialog for creating a new Route
 	 */
 	public void dialogCreateNewRoute() {
-		final AlertDialog.Builder alert = new AlertDialog.Builder(this).setTitle("Saisir le nom du trajet");
+		final AlertDialog.Builder alert = new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.lrc_alert_new_route_title));
 		
 		final EditText input = new EditText(getApplicationContext());
 		
-		input.setHint("Nom du trajet");
+		input.setHint(getResources().getString(R.string.lrc_alert_new_route_title));
 		input.setTextColor(Color.BLACK);
 		alert.setView(input);
 		
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		alert.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				
 				String value = input.getText().toString().trim();
 				
 				if(value.isEmpty()){
-					Toast.makeText(getApplicationContext(), "Vous devez au moins saisir une lettre", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.lrc_alert_new_route_noname), Toast.LENGTH_SHORT).show();
 					dialog.cancel();
 					dialogCreateNewRoute();
 					
 				}else if(RoutesCollection.getInstance().isNameAlreadyPresent(value)){
-					Toast.makeText(getApplicationContext(), "Le trajet "+value+" existe déjà", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.lrc_alert_new_route_existp1)+" "+value+" "+getResources().getString(R.string.lrc_alert_new_route_existp2), Toast.LENGTH_SHORT).show();
 					dialog.cancel();
 					dialogCreateNewRoute();
 					

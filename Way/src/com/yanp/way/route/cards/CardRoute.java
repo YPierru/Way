@@ -72,6 +72,7 @@ public class CardRoute extends Card {
 		TextView addrDestination = (TextView) view
 				.findViewById(R.id.tv_cardroute_innerlayout_addrarrivee);
 		TextView tv_RouteIsNotFinish = (TextView)view.findViewById(R.id.tv_cardroute_innerlayout_tjnonfini);
+		tv_RouteIsNotFinish.setText(this.context.getResources().getString(R.string.in_progress));
 
 		if (route.isValidate()) {
 			tv_RouteIsNotFinish.setVisibility(View.GONE);

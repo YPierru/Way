@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+	<!-- App nam -->
+    <string name="app_name">Way</string>
+    
+    
+    <!-- Activity title -->
+    <string name="title_activity_create_route">CreateRoute</string>
+    <string name="title_activity_gps_navigation">GPSNavigation</string>
+    <string name="title_activity_list_routes_cards">ListRoutesCards</string>
+    <string name="title_activity_trajet_details">TrajetDetails</string>
+    <string name="title_activity_seeroute">SeeRoute</string>
+    
+    <!-- Custom undo label -->
+    <string name="list_card_undo_title">Annuler</string>
+    <plurals name="list_card_undo_items">
+        <item quantity="one">%d trajet supprimé</item>
+        <item quantity="other">%d trajets supprimés</item>
+    </plurals>
+    
+    
+    <!-- Generic strings -->
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="ok">Ok</string>
+    <string name="save">Sauvegarder</string>
+    <string name="cancel">Annuler</string>
+    <string name="gps">GPS</string>
+    <string name="exit">Quitter</string>
+    <string name="drawing_in_progress">Dessin en cours</string>
+    <string name="finished">Terminé</string>
+    <string name="in_progress">En cours</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="file_route_name">.routescollection.way</string>
+    <string name="api_key">AIzaSyCkHLzb_ks9LdVOi1SyJmFTCWOefzhmves</string>
+    <string name="url_pattern_directionsapi">https://maps.googleapis.com/maps/api/directions/json?sensor=true</string>
+    
+    <!-- Strings used for the GPS -->
+    <string name="start">Départ</string>
+    <string name="marker">Jalon</string>
+    <string name="arrival">Arrivée</string>
+    <string name="alert_gps_disable">Veuillez activer votre GPS pour continuer</string>
+    <string name="gps_in">Dans</string>
+    <string name="gps_distance_unit">mètres</string>
+    <string name="gps_arrival_phrase">Vous êtes arrivé</string>
+    <string name="gps_then">puis</string>
+    <string name="gps_go_starting_point">Rejoingnez votre point de départ</string>
+    <string name="gps_youre_at">Vous êtes à</string>
+    <string name="gps_from_starting_point">de votre point de départ</string>
+    
+    <!-- Strings used for the CreateRoute activity -->
+    <string name="cr_alert_route_erased_title">Attention</string>
+    <string name="cr_alert_route_erased_message">Vous allez réinitialiser votre trajet (effacement des points).\nVoulez vous continuer ?</string>
+    <string name="cr_limit_markers_reach">Vous ne pouvez mettre plus de 8 jalons par trajets</string>
+    <string name="cr_alert_back_pressed_title">Attention</string>
+    <string name="cr_alert_back_pressed_message">Vous allez perdre toutes vos modifications.</string>
+    <string name="cr_item_search">Recherche</string>
+    <string name="cr_alert_no_internet_title">Il faut une connexion internet</string>
+    <string name="cr_alert_no_internet_message">Vous devez être connecté à internet pour utiliser cette fonctionnalité.</string>
+    <string name="cr_item_help">Aide</string>
+    <string name="cr_alert_help_title">Aide</string>
+    <string name="cr_item_wheel">Menu wheel</string>
+    <string name="cr_wheel_menu_close">Close</string>
+    <string name="cr_wheel_menu_draw">Dessiner</string>
+    <string name="cr_wheel_menu_exit_correction">Quitter\nCorrection</string>
+    <string name="cr_wheel_menu_correction">Correction</string>
+    <string name="cr_wheel_menu_save">Sauvegarder</string>
+    <string name="cr_delete_starting_point">Pour supprimer le point de départ, faites un appui long sur une autre zone</string>
+    <string name="cr_correction_mode_enable">Mode correction activé</string>
+    <string name="cr_correction_mode_disable">Mode correction désactivé</string>
+    <string name="cr_map_type_normal">Normal</string>
+    <string name="cr_map_type_hybrid">Hybride</string>
+    <string name="cr_map_type_satellite">Satellite</string>
+    <string name="cr_map_type_ground">Terrain</string>
+    <string name="cr_draw_route_before_gps">Dessinez votre trajet pour lancer le GPS</string>
+    <string name="cr_is_saved">dessiné</string>
+    <string name="cr_change_map_type">Changer\nCarte</string>
+    
+    <!-- Strings used for the ListRoutesCards activity -->
+    <string name="lrc_name">Vos trajets</string>
+    <string name="lrc_alert_no_route_title">Aucun trajet !</string>
+    <string name="lrc_alert_no_route_positive_button">Créer mon trajet</string>
+    <string name="lrc_item_new_route">Créer un trajet</string>
+    <string name="lrc_alert_new_route_title">Saisir le nom du trajet</string>
+    <string name="lrc_edittext_new_route">Nom du trajet</string>
+    <string name="lrc_alert_new_route_noname">Vous devez au moins saisir une lettre</string>
+    <string name="lrc_alert_new_route_existp1">Le trajet</string>
+    <string name="lrc_alert_new_route_existp2">existe déjà</string>
+    
+ 
+</resources>

@@ -50,7 +50,7 @@ public class SeeRoute extends Activity {
 	private void drawRoute() {
 		ArrayList<LatLng> listPoints = route.getPointsWhoDrawsPolylineLatLng();
 		
-		setMarker(listPoints.get(0), "Départ");
+		setMarker(listPoints.get(0), getResources().getString(R.string.start));
 		
 		PolylineOptions options = new PolylineOptions().geodesic(false).width(10).color(Constants.COLOR_POLYLINE);
 		
@@ -60,7 +60,7 @@ public class SeeRoute extends Activity {
 		
 		this.googleMap.addPolyline(options);
 		
-		setMarker(listPoints.get(listPoints.size() - 1), "Arrivée");
+		setMarker(listPoints.get(listPoints.size() - 1), getResources().getString(R.string.arrival));
 		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(listPoints.get(0),Constants.ZOOM_GENERAL);
 		
 		this.googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);

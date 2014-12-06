@@ -77,13 +77,13 @@ public class CardRouteHeader extends CardHeader {
 		TextView tvSubDate = (TextView)view.findViewById(R.id.tv_cardroute_headerlayout_subtitle_date);
 		tvSubDate.setText(" - "+dateCreation);
 		if(this.route.isValidate()){
-			status="Terminé";
+			status=this.context.getResources().getString(R.string.finished);
 		}else{
-			status="En cours";
+			status=this.context.getResources().getString(R.string.in_progress);
 		}
 
 		TextView tvSubtitleStatus = (TextView) view.findViewById(R.id.tv_cardroute_headerlayout_subtitle_status);
-		if(status.equals("En cours")){
+		if(status.equals(this.context.getResources().getString(R.string.in_progress))){
 			tvSubtitleStatus.setTextColor(Color.parseColor("#ffa62d"));
 		}else{
 			tvSubtitleStatus.setTextColor(Color.parseColor("#55bc00"));

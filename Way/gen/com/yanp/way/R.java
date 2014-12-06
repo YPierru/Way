@@ -411,6 +411,16 @@ containing a value of this type.
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
+ Default screen margins, per the Android Design guidelines. 
+
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+    
          */
         public static final int activity_horizontal_margin=0x7f05002e;
         public static final int activity_vertical_margin=0x7f05002f;
@@ -556,71 +566,71 @@ containing a value of this type.
         public static final int undobar_divider=0x7f020045;
     }
     public static final class id {
-        public static final int actv_search_places=0x7f0a0014;
-        public static final int book_now=0x7f0a0010;
-        public static final int buyButton=0x7f0a000a;
-        public static final int buy_now=0x7f0a000f;
-        public static final int buy_with_google=0x7f0a000e;
-        public static final int card_content_expand_layout=0x7f0a0020;
-        public static final int card_expand_inner_simple_title=0x7f0a002f;
-        public static final int card_header_button_expand=0x7f0a0018;
-        public static final int card_header_button_frame=0x7f0a0016;
-        public static final int card_header_button_other=0x7f0a0019;
-        public static final int card_header_button_overflow=0x7f0a0017;
-        public static final int card_header_inner_frame=0x7f0a0015;
-        public static final int card_header_inner_simple_title=0x7f0a0027;
-        public static final int card_header_layout=0x7f0a001f;
-        public static final int card_main_content_layout=0x7f0a001c;
-        public static final int card_main_inner_simple_title=0x7f0a0030;
-        public static final int card_main_layout=0x7f0a001e;
-        public static final int card_overlap=0x7f0a0021;
-        public static final int card_shadow_layout=0x7f0a001d;
-        public static final int card_shadow_view=0x7f0a001a;
-        public static final int card_thumb_and_content_layout=0x7f0a0022;
-        public static final int card_thumbnail_image=0x7f0a001b;
-        public static final int card_thumbnail_layout=0x7f0a0023;
-        public static final int cardsList=0x7f0a003a;
-        public static final int classic=0x7f0a0011;
-        public static final int grayscale=0x7f0a0012;
-        public static final int holo_dark=0x7f0a0005;
-        public static final int holo_light=0x7f0a0006;
-        public static final int hybrid=0x7f0a0004;
-        public static final int item_gps=0x7f0a0040;
-        public static final int item_voir=0x7f0a003f;
-        public static final int linearLayoutForWheel=0x7f0a0037;
-        public static final int list_cardId=0x7f0a003b;
-        public static final int list_card_undobar=0x7f0a003c;
-        public static final int list_card_undobar_button=0x7f0a003e;
-        public static final int list_card_undobar_message=0x7f0a003d;
-        public static final int map=0x7f0a0036;
-        public static final int mapGPS=0x7f0a0031;
-        public static final int mapSee=0x7f0a0039;
-        public static final int match_parent=0x7f0a000c;
-        public static final int monochrome=0x7f0a0013;
-        public static final int none=0x7f0a0000;
-        public static final int normal=0x7f0a0001;
-        public static final int production=0x7f0a0007;
-        public static final int rl_gps=0x7f0a0032;
-        public static final int sandbox=0x7f0a0008;
-        public static final int satellite=0x7f0a0002;
-        public static final int selectionDetails=0x7f0a000b;
-        public static final int strict_sandbox=0x7f0a0009;
-        public static final int terrain=0x7f0a0003;
-        public static final int tv_cardroute_headerlayout_subtitle_date=0x7f0a0029;
-        public static final int tv_cardroute_headerlayout_subtitle_status=0x7f0a0028;
-        public static final int tv_cardroute_innerlayout_addrarrivee=0x7f0a002e;
-        public static final int tv_cardroute_innerlayout_addrdepart=0x7f0a002d;
-        public static final int tv_cardroute_innerlayout_duree=0x7f0a002b;
-        public static final int tv_cardroute_innerlayout_kilometrage=0x7f0a002a;
-        public static final int tv_cardroute_innerlayout_tjnonfini=0x7f0a002c;
-        public static final int tv_createroute_waypoints=0x7f0a0038;
-        public static final int tv_gps_finish=0x7f0a0033;
-        public static final int tv_gps_htmlInstructions=0x7f0a0035;
-        public static final int tv_gps_kmnextpoint=0x7f0a0034;
-        public static final int undobar=0x7f0a0024;
-        public static final int undobar_button=0x7f0a0026;
-        public static final int undobar_message=0x7f0a0025;
-        public static final int wrap_content=0x7f0a000d;
+        public static final int actv_search_places=0x7f0b0014;
+        public static final int book_now=0x7f0b000e;
+        public static final int buyButton=0x7f0b000a;
+        public static final int buy_now=0x7f0b000f;
+        public static final int buy_with_google=0x7f0b0010;
+        public static final int card_content_expand_layout=0x7f0b0020;
+        public static final int card_expand_inner_simple_title=0x7f0b002f;
+        public static final int card_header_button_expand=0x7f0b0018;
+        public static final int card_header_button_frame=0x7f0b0016;
+        public static final int card_header_button_other=0x7f0b0019;
+        public static final int card_header_button_overflow=0x7f0b0017;
+        public static final int card_header_inner_frame=0x7f0b0015;
+        public static final int card_header_inner_simple_title=0x7f0b0027;
+        public static final int card_header_layout=0x7f0b001f;
+        public static final int card_main_content_layout=0x7f0b001c;
+        public static final int card_main_inner_simple_title=0x7f0b0030;
+        public static final int card_main_layout=0x7f0b001e;
+        public static final int card_overlap=0x7f0b0021;
+        public static final int card_shadow_layout=0x7f0b001d;
+        public static final int card_shadow_view=0x7f0b001a;
+        public static final int card_thumb_and_content_layout=0x7f0b0022;
+        public static final int card_thumbnail_image=0x7f0b001b;
+        public static final int card_thumbnail_layout=0x7f0b0023;
+        public static final int cardsList=0x7f0b003a;
+        public static final int classic=0x7f0b0011;
+        public static final int grayscale=0x7f0b0012;
+        public static final int holo_dark=0x7f0b0005;
+        public static final int holo_light=0x7f0b0006;
+        public static final int hybrid=0x7f0b0000;
+        public static final int item_gps=0x7f0b0040;
+        public static final int item_voir=0x7f0b003f;
+        public static final int linearLayoutForWheel=0x7f0b0037;
+        public static final int list_cardId=0x7f0b003b;
+        public static final int list_card_undobar=0x7f0b003c;
+        public static final int list_card_undobar_button=0x7f0b003e;
+        public static final int list_card_undobar_message=0x7f0b003d;
+        public static final int map=0x7f0b0036;
+        public static final int mapGPS=0x7f0b0031;
+        public static final int mapSee=0x7f0b0039;
+        public static final int match_parent=0x7f0b000c;
+        public static final int monochrome=0x7f0b0013;
+        public static final int none=0x7f0b0001;
+        public static final int normal=0x7f0b0002;
+        public static final int production=0x7f0b0007;
+        public static final int rl_gps=0x7f0b0032;
+        public static final int sandbox=0x7f0b0008;
+        public static final int satellite=0x7f0b0003;
+        public static final int selectionDetails=0x7f0b000b;
+        public static final int strict_sandbox=0x7f0b0009;
+        public static final int terrain=0x7f0b0004;
+        public static final int tv_cardroute_headerlayout_subtitle_date=0x7f0b0029;
+        public static final int tv_cardroute_headerlayout_subtitle_status=0x7f0b0028;
+        public static final int tv_cardroute_innerlayout_addrarrivee=0x7f0b002e;
+        public static final int tv_cardroute_innerlayout_addrdepart=0x7f0b002d;
+        public static final int tv_cardroute_innerlayout_duree=0x7f0b002b;
+        public static final int tv_cardroute_innerlayout_kilometrage=0x7f0b002a;
+        public static final int tv_cardroute_innerlayout_tjnonfini=0x7f0b002c;
+        public static final int tv_createroute_waypoints=0x7f0b0038;
+        public static final int tv_gps_finish=0x7f0b0033;
+        public static final int tv_gps_htmlInstructions=0x7f0b0035;
+        public static final int tv_gps_kmnextpoint=0x7f0b0034;
+        public static final int undobar=0x7f0b0024;
+        public static final int undobar_button=0x7f0b0026;
+        public static final int undobar_message=0x7f0b0025;
+        public static final int wrap_content=0x7f0b000d;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f060001;
@@ -652,8 +662,8 @@ containing a value of this type.
         public static final int list_card_undo_message=0x7f030016;
     }
     public static final class menu {
-        public static final int cardeheader_menu_routeunvalidate=0x7f0b0000;
-        public static final int cardeheader_menu_routevalidate=0x7f0b0001;
+        public static final int cardeheader_menu_routeunvalidate=0x7f0a0000;
+        public static final int cardeheader_menu_routevalidate=0x7f0a0001;
     }
     public static final class plurals {
         /**  Card selected item with CAB 
@@ -664,9 +674,15 @@ containing a value of this type.
         public static final int list_card_undo_items=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f07001c;
-        public static final int api_key=0x7f07002c;
+        public static final int action_settings=0x7f07002b;
+        public static final int alert_gps_disable=0x7f070032;
+        public static final int api_key=0x7f07002d;
+        /**  App nam 
+ App nam 
+         */
         public static final int app_name=0x7f070000;
+        public static final int arrival=0x7f070031;
+        public static final int cancel=0x7f070025;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -756,28 +772,90 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f07001a;
-        public static final int drawer_close=0x7f07002a;
-        public static final int drawer_open=0x7f070029;
-        public static final int file_route_name=0x7f07002b;
-        public static final int hello_world=0x7f070020;
+        public static final int cr_alert_back_pressed_message=0x7f07003e;
+        public static final int cr_alert_back_pressed_title=0x7f07003d;
+        public static final int cr_alert_help_title=0x7f070043;
+        public static final int cr_alert_no_internet_message=0x7f070041;
+        public static final int cr_alert_no_internet_title=0x7f070040;
+        public static final int cr_alert_route_erased_message=0x7f07003b;
+        /**  Strings used for the CreateRoute activity 
+ Strings used for the CreateRoute activity 
+         */
+        public static final int cr_alert_route_erased_title=0x7f07003a;
+        public static final int cr_change_map_type=0x7f070053;
+        public static final int cr_correction_mode_disable=0x7f07004c;
+        public static final int cr_correction_mode_enable=0x7f07004b;
+        public static final int cr_delete_starting_point=0x7f07004a;
+        public static final int cr_draw_route_before_gps=0x7f070051;
+        public static final int cr_is_saved=0x7f070052;
+        public static final int cr_item_help=0x7f070042;
+        public static final int cr_item_search=0x7f07003f;
+        public static final int cr_item_wheel=0x7f070044;
+        public static final int cr_limit_markers_reach=0x7f07003c;
+        public static final int cr_map_type_ground=0x7f070050;
+        public static final int cr_map_type_hybrid=0x7f07004e;
+        public static final int cr_map_type_normal=0x7f07004d;
+        public static final int cr_map_type_satellite=0x7f07004f;
+        public static final int cr_wheel_menu_close=0x7f070045;
+        public static final int cr_wheel_menu_correction=0x7f070048;
+        public static final int cr_wheel_menu_draw=0x7f070046;
+        public static final int cr_wheel_menu_exit_correction=0x7f070047;
+        public static final int cr_wheel_menu_save=0x7f070049;
+        public static final int drawing_in_progress=0x7f070028;
+        public static final int exit=0x7f070027;
+        public static final int file_route_name=0x7f07002c;
+        public static final int finished=0x7f070029;
+        public static final int gps=0x7f070026;
+        public static final int gps_arrival_phrase=0x7f070035;
+        public static final int gps_distance_unit=0x7f070034;
+        public static final int gps_from_starting_point=0x7f070039;
+        public static final int gps_go_starting_point=0x7f070037;
+        public static final int gps_in=0x7f070033;
+        public static final int gps_then=0x7f070036;
+        public static final int gps_youre_at=0x7f070038;
+        public static final int in_progress=0x7f07002a;
         /**  Undo Controller
+ Custom undo label 
+ Custom undo label 
          */
         public static final int list_card_undo_title=0x7f070001;
-        public static final int title_activity_array_adapter_demo=0x7f070027;
-        public static final int title_activity_gpsrunner=0x7f07001e;
-        public static final int title_activity_panel_trajet=0x7f070025;
-        public static final int title_activity_route_adapter=0x7f070028;
-        public static final int title_activity_see_trajet=0x7f070026;
-        public static final int title_activity_seeroute=0x7f070023;
-        public static final int title_activity_test_maps=0x7f070022;
-        public static final int title_activity_trajet_details=0x7f070021;
-        public static final int title_activity_trajet_display=0x7f07001f;
-        public static final int title_activity_trajet_save=0x7f07001d;
-        public static final int title_activity_welcome=0x7f070024;
+        public static final int lrc_alert_new_route_existp1=0x7f07005b;
+        public static final int lrc_alert_new_route_existp2=0x7f07005c;
+        public static final int lrc_alert_new_route_noname=0x7f07005a;
+        public static final int lrc_alert_new_route_title=0x7f070058;
+        public static final int lrc_alert_no_route_positive_button=0x7f070056;
+        public static final int lrc_alert_no_route_title=0x7f070055;
+        public static final int lrc_edittext_new_route=0x7f070059;
+        public static final int lrc_item_new_route=0x7f070057;
+        /**  Strings used for the ListRoutesCards activity 
+ Strings used for the ListRoutesCards activity 
+         */
+        public static final int lrc_name=0x7f070054;
+        public static final int marker=0x7f070030;
+        public static final int no=0x7f070022;
+        public static final int ok=0x7f070023;
+        public static final int save=0x7f070024;
+        /**  Strings used for the GPS 
+ Strings used for the GPS 
+         */
+        public static final int start=0x7f07002f;
+        /**  Activity title 
+ Activity title 
+         */
+        public static final int title_activity_create_route=0x7f07001c;
+        public static final int title_activity_gps_navigation=0x7f07001d;
+        public static final int title_activity_list_routes_cards=0x7f07001e;
+        public static final int title_activity_seeroute=0x7f070020;
+        public static final int title_activity_trajet_details=0x7f07001f;
+        public static final int url_pattern_directionsapi=0x7f07002e;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
         public static final int wallet_buy_button_place_holder=0x7f07001b;
+        /**  Generic strings 
+ Generic strings 
+         */
+        public static final int yes=0x7f070021;
     }
     public static final class style {
         /** 
@@ -800,9 +878,31 @@ containing a value of this type.
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
+        Base application theme for API 11+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+    
+ API 11 theme customizations can go here. 
+
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    
+ API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f090022;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090023;

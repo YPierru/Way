@@ -1,28 +1,91 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-
+	<!-- App nam -->
     <string name="app_name">Way</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_trajet_save">TrajetSave</string>
-    <string name="title_activity_gpsrunner">GPSRunner</string>
-    <string name="title_activity_trajet_display">TrajetDisplay</string>
-    <string name="hello_world">Hello world!</string>
+    
+    
+    <!-- Activity title -->
+    <string name="title_activity_create_route">CreateRoute</string>
+    <string name="title_activity_gps_navigation">GPSNavigation</string>
+    <string name="title_activity_list_routes_cards">ListRoutesCards</string>
     <string name="title_activity_trajet_details">TrajetDetails</string>
-    <string name="title_activity_test_maps">TestMaps</string>
     <string name="title_activity_seeroute">SeeRoute</string>
-    <string name="title_activity_welcome">Way</string>
-    <string name="title_activity_panel_trajet">PanelTrajet</string>
-    <string name="title_activity_see_trajet">SeeTrajet</string>
-    <string name="title_activity_array_adapter_demo">ArrayAdapterDemo</string>
-    <string name="title_activity_route_adapter">RouteAdapter</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="list_card_undo_title">Annuler</string>
+    
+    <!-- Custom undo label -->
+    <string name="list_card_undo_title">Undo</string>
+    <plurals name="list_card_undo_items">
+        <item quantity="one">%d route deleted</item>
+        <item quantity="other">%d routes deleted</item>
+    </plurals>
+    
+    
+    <!-- Generic strings -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="gps">GPS</string>
+    <string name="exit">Exit</string>
+    <string name="drawing_in_progress">Drawing in progress</string>
+    <string name="finished">Finished</string>
+    <string name="in_progress">In progress</string>
+    <string name="action_settings">Settings</string>
     <string name="file_route_name">.routescollection.way</string>
     <string name="api_key">AIzaSyCkHLzb_ks9LdVOi1SyJmFTCWOefzhmves</string>
-    <plurals name="list_card_undo_items">
-        <item quantity="one">Trajet supprimé</item>
-        <item quantity="other">Trajet supprimé</item>
-    </plurals>
-
+    <string name="url_pattern_directionsapi">https://maps.googleapis.com/maps/api/directions/json?sensor=true</string>
+    
+    <!-- Strings used for the GPS -->
+    <string name="start">Start</string>
+    <string name="marker">Marker</string>
+    <string name="arrival">Arrival</string>
+    <string name="alert_gps_disable">Please enable the GPS location to continue</string>
+    <string name="gps_in">In</string>
+    <string name="gps_distance_unit">meters</string>
+    <string name="gps_arrival_phrase">You are at your destination</string>
+    <string name="gps_then">then</string>
+    <string name="gps_go_starting_point">Go to the starting point</string>
+    <string name="gps_youre_at">You are at</string>
+    <string name="gps_from_starting_point">from your starting point</string>
+    
+    <!-- Strings used for the CreateRoute activity -->
+    <string name="cr_alert_route_erased_title">Warning</string>
+    <string name="cr_alert_route_erased_message">You will eras all the intermediary points\nWant to continue ?</string>
+    <string name="cr_limit_markers_reach">You can\'t have more than 8 markers in a route</string>
+    <string name="cr_alert_back_pressed_title">Warning</string>
+    <string name="cr_alert_back_pressed_message">You will loose all your modifications</string>
+    <string name="cr_item_search">Search</string>
+    <string name="cr_alert_no_internet_title">You must have an internet connection</string>
+    <string name="cr_alert_no_internet_message">You must have an internet connection for this feature.</string>
+    <string name="cr_item_help">Help</string>
+    <string name="cr_alert_help_title">Help</string>
+    <string name="cr_item_wheel">Menu wheel</string>
+    <string name="cr_wheel_menu_close">Close</string>
+    <string name="cr_wheel_menu_draw">Draw</string>
+    <string name="cr_wheel_menu_exit_correction">Exit\nCorrection</string>
+    <string name="cr_wheel_menu_correction">Correction</string>
+    <string name="cr_wheel_menu_save">Save</string>
+    <string name="cr_delete_starting_point">For deleting the starting point, long press on an other surface.</string>
+    <string name="cr_correction_mode_enable">Correction mode enable</string>
+    <string name="cr_correction_mode_disable">Correction mode disable</string>
+    <string name="cr_map_type_normal">Normal</string>
+    <string name="cr_map_type_hybrid">Hybrid</string>
+    <string name="cr_map_type_satellite">Satellite</string>
+    <string name="cr_map_type_ground">Ground</string>
+    <string name="cr_draw_route_before_gps">Draw your route for the GPS navigation</string>
+    <string name="cr_is_saved">drawn</string>
+    <string name="cr_change_map_type">Change\nMap</string>
+    
+    <!-- Strings used for the ListRoutesCards activity -->
+    <string name="lrc_name">Your routes</string>
+    <string name="lrc_alert_no_route_title">No Routes !</string>
+    <string name="lrc_alert_no_route_positive_button">Create my route</string>
+    <string name="lrc_item_new_route">Create a route</string>
+    <string name="lrc_alert_new_route_title">Write the name of your route</string>
+    <string name="lrc_edittext_new_route">Route\'s name</string>
+    <string name="lrc_alert_new_route_noname">You must write at least one character</string>
+    <string name="lrc_alert_new_route_existp1">The route</string>
+    <string name="lrc_alert_new_route_existp2">still exist</string>
+    
+ 
 </resources>

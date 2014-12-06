@@ -140,7 +140,7 @@ public class CreateRoute extends Activity {
 	private void actionIfRouteNotFinish(){
 			
 		setMapOneClickOneMarker();
-		Log.d("DEBUG", "SIZE="+this.currentRoute.getListMarkers().size());
+		//Log.d("DEBUG", "SIZE="+this.currentRoute.getListMarkers().size());
 		ArrayList<LatLng> tmpListMarkers = this.currentRoute.getListMarkersLatLng();
 		this.amountOfInterPointsRemaining=tmpListMarkers.size()-1;
 		
@@ -158,7 +158,7 @@ public class CreateRoute extends Activity {
 		//Place the marker on the map and add them in the listMarkers
 		for (int i = 0; i < tmpListMarkers.size(); i++) {
 			if (i == 0) {
-				this.listMarkers.add(putMarker(tmpListMarkers.get(i), "Départ",true, false));
+				this.listMarkers.add(putMarker(tmpListMarkers.get(i), getResources().getString(R.string.start),true, false));
 			} else {
 				this.listMarkers.add(putMarker(tmpListMarkers.get(i), "NO", true, true));
 			}
@@ -182,10 +182,10 @@ public class CreateRoute extends Activity {
 				
 				if(listMarkers.size()>0){
 					AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateRoute.this);
-					alertDialog.setTitle("Attention");
-					alertDialog.setMessage("Vous allez réinitialiser votre trajet (effacement des points).\nVoulez vous continuer ?")
+					alertDialog.setTitle(getResources().getString(R.string.cr_alert_route_erased_title));
+					alertDialog.setMessage(getResources().getString(R.string.cr_alert_route_erased_message))
 							   .setCancelable(false)
-							   .setPositiveButton("Oui",
+							   .setPositiveButton(getResources().getString(R.string.yes),
 									new DialogInterface.OnClickListener() {
 										public void onClick(DialogInterface dialog,
 												int id) {
@@ -193,7 +193,7 @@ public class CreateRoute extends Activity {
 											eraseRouteAndAddNewStartingPoint(pts);
 										}
 									})
-							   .setNegativeButton("Non",
+							   .setNegativeButton(getResources().getString(R.string.no),
 									new DialogInterface.OnClickListener() {
 										public void onClick(DialogInterface dialog,
 												int id) {
@@ -225,7 +225,7 @@ public class CreateRoute extends Activity {
 		CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(point,Constants.ZOOM_NEW_ROUTE);
 		this.googleMap.animateCamera(cu, Constants.ZOOM_SPEED_MS, null);
 	
-		this.listMarkers.add(putMarker(point, "Départ", true, false));
+		this.listMarkers.add(putMarker(point, getResources().getString(R.string.start), true, false));
 		this.currentRoute.getListMarkers().clear();
 		this.currentRoute.getListMarkers().add(point.latitude, point.longitude);
 
@@ -248,7 +248,7 @@ public class CreateRoute extends Activity {
 					canBeDraw=true;
 					currentRoute.getListMarkers().add(point.latitude, point.longitude);
 				}else{
-					Toast.makeText(getApplicationContext(), "Vous ne pouvez mettre plus de 8 jalons par trajets", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.cr_limit_markers_reach), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -351,25 +351,25 @@ public class CreateRoute extends Activity {
 
 		if (this.listMarkers.size() > 0) {
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-			alertDialog.setTitle("Attention");
+			alertDialog.setTitle(getResources().getString(R.string.cr_alert_back_pressed_title));
 			alertDialog
-					.setMessage("Vous allez perdre toutes vos modifications.")
+					.setMessage(getResources().getString(R.string.cr_alert_back_pressed_message))
 					.setCancelable(false)
-					.setPositiveButton("Ok",
+					.setPositiveButton(getResources().getString(R.string.ok),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,int id) {
 									dialog.cancel();
 									finish();
 								}
 							})
-					.setNeutralButton("Sauvegarder", new DialogInterface.OnClickListener() {
+					.setNeutralButton(getResources().getString(R.string.save), new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							actionSave();
 						}
 					})
-					.setNegativeButton("Annuler",
+					.setNegativeButton(getResources().getString(R.string.cancel),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,int id) {
 									dialog.cancel();
@@ -386,7 +386,7 @@ public class CreateRoute extends Activity {
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
-		itemSearch = menu.add("Recherche").setIcon(R.drawable.ic_action_search);
+		itemSearch = menu.add(getResources().getString(R.string.cr_item_search)).setIcon(R.drawable.ic_action_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemSearch.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 
@@ -397,11 +397,11 @@ public class CreateRoute extends Activity {
 				}else{
 					AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 							CreateRoute.this);
-					alertDialog.setTitle("Il faut une connexion internet");
+					alertDialog.setTitle(getResources().getString(R.string.cr_alert_no_internet_title));
 					alertDialog
-							.setMessage(Html.fromHtml("Vous devez être connecté à internet pour utiliser cette fonctionnalité."))
+							.setMessage(Html.fromHtml(getResources().getString(R.string.cr_alert_no_internet_message)))
 							.setCancelable(true)
-							.setPositiveButton("Ok",
+							.setPositiveButton(getResources().getString(R.string.ok),
 									new DialogInterface.OnClickListener() {
 										public void onClick(DialogInterface dialog,
 												int id) {
@@ -415,7 +415,7 @@ public class CreateRoute extends Activity {
 			}
 		});
 
-		itemHelp = menu.add("Aide").setIcon(R.drawable.ic_action_help);
+		itemHelp = menu.add(getResources().getString(R.string.cr_item_help)).setIcon(R.drawable.ic_action_help);
 		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemHelp.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 
@@ -423,20 +423,18 @@ public class CreateRoute extends Activity {
 			public boolean onMenuItemClick(MenuItem item) {
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 						CreateRoute.this);
-				alertDialog.setTitle("Aide");
+				String message;
+				if(Constants.CURRENT_LANGUAGE.getLanguage().equals("fr")){
+					message="<b>Appui long</b> : efface tout sur la carte et place un <u>point de départ</u><br/><b>Appui simple</b> : place un point par lequel <u>vous voulez passer</u><br />La <b>loupe</b> : lance une barre de recherche pour trouvez une adresse, un lieu<br />La <b>roue</b> : lance le menu. Vous pourrez : <br /><u><em>Dessiner</em></u> votre trajet (si vous avez au moins 2 points)<br /><u><em>Sauvegarder</em></u> : si vous avez un trajet, le sauvegarde, vous pourrez ensuite soit lancer le <u>GPS</u> soit <u>quitter</u><br /><u><em>Changer type carte</em></u> : changer le type de la carte (normal, hybride, terrain, satellite)<br /><u><em>Corriger</em></u> : active un mode particulier. Si vous avez un trajet dessiné, l'efface. Vous pouvez supprimer un point en cliquant dessus. Pour quitter ce mode, cliquer sur dessiner, terminer ou correction";
+				}else{
+					message="<b>Long press</b> : erase everything on the map and put a <u>starting point</u><br/><b>Short press</b> : put an <u>intermediary point</u><br />The <b>magnifying glass</b> : display a search bar for finding a city, a street<br />The <b>wheel</b> : display the menu. You can : <br /><u><em>Draw</em></u> your route (if you have at least 2 points)<br /><u><em>Save</em></u> : if you have a route, save it, then you could launch the <u>GPS navigation</u> or <u>exit</u><br /><u><em>Change map</em></u> : change map type (normal, hybrid, ground, satellite)<br /><u><em>Correction Mode</em></u> : enable the correction feature. If you have a drawing route, erase it. You can delete an intermediary point by clicking on it. If you want to leave this mode, click on draw, save or correction again.";
+				}
+				alertDialog.setTitle(getResources().getString(R.string.cr_alert_help_title));
 				alertDialog
 						.setMessage(
-								Html.fromHtml("<b>Appui long</b> : efface tout sur la carte et place un <u>point de départ</u>"
-										+ "<br/><b>Appui simple</b> : place un point par lequel <u>vous voulez passer</u>"
-										+ "<br />Le <b>point d'interrogation</b> : lance une barre de recherche pour trouvez une adresse, un lieu..."
-										+ "<br />La <b>roue</b> : lance le menu. Vous pourrez : "
-										+ "<br /><u><em>Dessiner</em></u> votre trajet (si vous avez au moins 2 points)"
-										+ "<br /><u><em>Sauvegarder</em></u> : si vous avez un trajet, le sauvegarde, vous pourrez ensuite soit lancer le <u>GPS</u> soit <u>quitter</u>"
-										+ "<br /><u><em>Changer type carte</em></u> : changer le type de la carte (normal, hybride, terrain, satellite)"
-										+ "<br /><u><em>Corriger</em></u> : active un mode particulier. Si vous avez un trajet dessiné, l'efface. "
-										+ "Vous pouvez supprimer un point en cliquant dessus. Pour quitter ce mode, cliquer sur dessiner, terminer ou correction"))
+								Html.fromHtml(message))
 						.setCancelable(false)
-						.setPositiveButton("Ok",
+						.setPositiveButton(getResources().getString(R.string.ok),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
@@ -449,7 +447,7 @@ public class CreateRoute extends Activity {
 		});
 
 		
-		itemWheelMenu = menu.add("Menu wheel").setIcon(R.drawable.ic_action_wheel);
+		itemWheelMenu = menu.add(getResources().getString(R.string.cr_item_wheel)).setIcon(R.drawable.ic_action_wheel);
 		itemWheelMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemWheelMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 
@@ -470,18 +468,18 @@ public class CreateRoute extends Activity {
 							mWheelMenu.setTextSize(Constants.TEXT_SIZE_WHEEL);
 
 							//According to the state of the differents boolean, the wheel will not be the same
-							mWheelMenu.setCenterCircle(new WheelMenu("Close", true, android.R.drawable.ic_menu_close_clear_cancel));
+							mWheelMenu.setCenterCircle(new WheelMenu(getResources().getString(R.string.cr_wheel_menu_close), true, android.R.drawable.ic_menu_close_clear_cancel));
 							
 							mWheelMenu.addMenuEntry(new SaveMenu());
 							
 							if(canBeDraw){
-								mWheelMenu.addMenuEntry(new WheelMenu("Dessiner", true, 0));
+								mWheelMenu.addMenuEntry(new WheelMenu(getResources().getString(R.string.cr_wheel_menu_draw), true, 0));
 							}
 							if(listMarkers.size()>=1 && correctionEnable){
-								mWheelMenu.addMenuEntry(new WheelMenu("Quitter\nCorrection", true, 0));
+								mWheelMenu.addMenuEntry(new WheelMenu(getResources().getString(R.string.cr_wheel_menu_exit_correction), true, 0));
 							}
 							if(listMarkers.size()>1 && !correctionEnable){
-								mWheelMenu.addMenuEntry(new WheelMenu("Correction", true, 0));
+								mWheelMenu.addMenuEntry(new WheelMenu(getResources().getString(R.string.cr_wheel_menu_correction), true, 0));
 							}
 							
 							mWheelMenu.addMenuEntry(new MapTypeMenu());
@@ -644,7 +642,7 @@ public class CreateRoute extends Activity {
 
 		if (correctionEnable) {
 			correctionEnable = false;
-			changeStatusBarOnCorrectionMode();
+			changeActionBarOnCorrectionMode();
 			setMapOneClickOneMarker();
 		}
 
@@ -679,7 +677,7 @@ public class CreateRoute extends Activity {
 			correctionEnable = true;
 
 			//Change the color of the action bar
-			changeStatusBarOnCorrectionMode();
+			changeActionBarOnCorrectionMode();
 			
 			this.currentRoute.setValidate(false);
 			
@@ -709,7 +707,7 @@ public class CreateRoute extends Activity {
 							if (i == 0) {
 								Toast.makeText(
 										getApplicationContext(),
-										"Pour supprimer le point de départ, faites un appui long sur une autre zone",
+										getResources().getString(R.string.cr_delete_starting_point),
 										Toast.LENGTH_SHORT).show();
 							} else {
 								listMarkers.remove(i);
@@ -730,19 +728,19 @@ public class CreateRoute extends Activity {
 					return false;
 				}
 			});
-			Toast.makeText(getApplicationContext(),"Mode correction activé", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),getResources().getString(R.string.cr_correction_mode_enable), Toast.LENGTH_SHORT).show();
 		} 
 		
 		else {
 			correctionEnable = false;
-			changeStatusBarOnCorrectionMode();
+			changeActionBarOnCorrectionMode();
 			setMapOneClickOneMarker();
 			Toast.makeText(getApplicationContext(),
-					"Mode correction désactivé", Toast.LENGTH_SHORT).show();
+					getResources().getString(R.string.cr_correction_mode_disable), Toast.LENGTH_SHORT).show();
 		}
 	}
 	
-	private void changeStatusBarOnCorrectionMode(){
+	private void changeActionBarOnCorrectionMode(){
 		if(correctionEnable){
 			getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff8000")));
 			getActionBar().setTitle(this.currentRoute.getName()+" [Correction]");
@@ -795,28 +793,28 @@ public class CreateRoute extends Activity {
 		 */
 		public void menuActiviated() {
 	
-			if (this.name.equals("Normal")) {
+			if (this.name.equals(getResources().getString(R.string.cr_map_type_normal))) {
 				googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-			} else if (this.name.equals("Hybride")) {
+			} else if (this.name.equals(getResources().getString(R.string.cr_map_type_hybrid))) {
 				googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-			} else if (this.name.equals("Satellite")) {
+			} else if (this.name.equals(getResources().getString(R.string.cr_map_type_satellite))) {
 				googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-			} else if (this.name.equals("Terrain")) {
+			} else if (this.name.equals(getResources().getString(R.string.cr_map_type_ground))) {
 				googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-			} else if (this.name.equals("Dessiner")) {
+			} else if (this.name.equals(getResources().getString(R.string.cr_wheel_menu_draw))) {
 				actionDraw();
-			} else if (this.name.equals("Correction") || this.name.equals("Quitter Correction")) {
+			} else if (this.name.equals(getResources().getString(R.string.cr_wheel_menu_correction)) || this.name.equals(getResources().getString(R.string.cr_wheel_menu_exit_correction))) {
 				actionCorrection();
-			} else if (this.name.equals("Quitter")) {
+			} else if (this.name.equals(getResources().getString(R.string.exit))) {
 				finish();
-			} else if (this.name.equals("GPS")){
+			} else if (this.name.equals(getResources().getString(R.string.gps))){
 				if(currentRoute.isValidate()){
 					Intent toGPSRunner = new Intent(getApplicationContext(),GPSNavigation.class);
 					toGPSRunner.putExtra("Route_for_navigation_gps", (Parcelable) currentRoute);
 					toGPSRunner.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					getApplicationContext().startActivity(toGPSRunner);
 				}else{
-					Toast.makeText(getApplicationContext(),"Dessinez votre trajet pour lancer le GPS", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.cr_draw_route_before_gps), Toast.LENGTH_SHORT).show();
 				}
 			}
 	
@@ -834,7 +832,7 @@ public class CreateRoute extends Activity {
 		}
 
 		public String getLabel() {
-			return "Changer\ncarte";
+			return getResources().getString(R.string.cr_change_map_type);
 		}
 
 		public int getIcon() {
@@ -842,10 +840,10 @@ public class CreateRoute extends Activity {
 		}
 
 		private List<RadialMenuEntry> children = new ArrayList<RadialMenuEntry>(
-				Arrays.asList(new WheelMenu("Normal", true, 0), 
-							  new WheelMenu("Hybride", true, 0),
-							  new WheelMenu("Satellite", true, 0),
-							  new WheelMenu("Terrain", true, 0)));
+				Arrays.asList(new WheelMenu(getResources().getString(R.string.cr_map_type_normal), true, 0), 
+							  new WheelMenu(getResources().getString(R.string.cr_map_type_hybrid), true, 0),
+							  new WheelMenu(getResources().getString(R.string.cr_map_type_satellite), true, 0),
+							  new WheelMenu(getResources().getString(R.string.cr_map_type_ground), true, 0)));
 
 		public List<RadialMenuEntry> getChildren() {
 			return children;
@@ -862,7 +860,7 @@ public class CreateRoute extends Activity {
 		}
 
 		public String getLabel() {
-			return "Sauvegarder";
+			return getResources().getString(R.string.cr_wheel_menu_save);
 		}
 
 		public int getIcon() {
@@ -870,8 +868,8 @@ public class CreateRoute extends Activity {
 		}
 
 		private List<RadialMenuEntry> children = new ArrayList<RadialMenuEntry>(
-				Arrays.asList(new WheelMenu("Quitter", true, 0), new WheelMenu(
-						"GPS", true, 0)));
+				Arrays.asList(new WheelMenu(getResources().getString(R.string.exit), true, 0), new WheelMenu(
+						getResources().getString(R.string.gps), true, 0)));
 
 		public List<RadialMenuEntry> getChildren() {
 			return children;
@@ -879,7 +877,7 @@ public class CreateRoute extends Activity {
 
 		public void menuActiviated() {
 			actionSave();
-			Toast.makeText(getApplicationContext(),currentRoute.getName()+" sauvegardé", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),currentRoute.getName()+" "+getResources().getString(R.string.cr_is_saved), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -910,7 +908,7 @@ public class CreateRoute extends Activity {
 			// Sensor enabled
 			String sensor = "sensor=false";
 
-			String components = "components=country:fr";
+			String components = "components=country:"+Constants.CURRENT_LANGUAGE.getLanguage();
 
 			// Building the parameters to the web service
 			String parameters = input + "&" + types + "&" + components + "&"
@@ -937,7 +935,7 @@ public class CreateRoute extends Activity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 
-			Log.d("DEBUUUUUG", "résultat = "+result);
+			//Log.d("DEBUUUUUG", "résultat = "+result);
 			
 			// Creating ParserTask
 			ParserTask parserTask = new ParserTask();
